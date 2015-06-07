@@ -1,0 +1,26 @@
+ul {
+   list-style-type: none;
+   margin: 20px;
+}
+
+li {
+   padding: 5px;
+}
+
+li:active {
+    background-color: yellow;
+    
+} 
+
+img {
+	width: 400px;
+}
+
+#catshow {
+	border: 1px solid blue;
+}
+
+#gallery {
+	border-top: 1px solid green;
+	border-bottom: 1px solid green;
+} 
