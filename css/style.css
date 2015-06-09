@@ -49,6 +49,11 @@ img:hover {
 	width: 25%;
 }
 
+.cat {
+  font-style: bold;
+  color: blue;
+}
+
 .cat-show {
 	width: 65%;
 	border: 1px solid blue;
