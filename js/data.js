@@ -2,23 +2,58 @@
             "kittens" : [
               {
                 "name" : "Ninni",
-                "img"  : "img/kitten-1.jpg"
+                "img"  : "img/kitten-1.jpg",
+                "clicks" : 0 
               },
               {
                 "name" : "Hugo",
-                "img"  : "img/kitten-2.jpg"
+                "img"  : "img/kitten-2.jpg",
+                "clicks" : 0 
               },
               {
                 "name" : "Nora",
-                "img"  : "img/kitten-3.jpg"
+                "img"  : "img/kitten-3.jpg",
+                "clicks" : 0 
               },
               {
                 "name" : "Ridder",
-                "img"  : "img/kitten-4.jpg"
+                "img"  : "img/kitten-4.jpg",
+                "clicks" : 0 
               },
               {
                 "name" : "Waldo",
-                "img"  : "img/kitten-5.jpg"
+                "img"  : "img/kitten-5.jpg",
+                "clicks" : 0 
+              },
+              {
+                "name" : "Mux",
+                "img"  : "img/kitten-6.jpg",
+                "clicks" : 0 
+              },
+              {
+                "name" : "Barollo",
+                "img"  : "img/kitten-7.jpg",
+                "clicks" : 0 
+              },
+              {
+                "name" : "Bezzi",
+                "img"  : "img/kitten-8.jpg",
+                "clicks" : 0 
+              },
+              {
+                "name" : "Nemki",
+                "img"  : "img/kitten-9.jpg",
+                "clicks" : 0 
+              },
+              {
+                "name" : "Daduda",
+                "img"  : "img/kitten-10.jpg",
+                "clicks" : 0 
+              },
+              {
+                "name" : "Gerdi",
+                "img"  : "img/kitten-11.jpg",
+                "clicks" : 0 
               }
            ]
          };
