@@ -1,13 +1,37 @@
+* {
+    -moz-box-sizing: border-box;
+         box-sizing: border-box;
+}
+
+body {
+    background: #fff;
+    margin: 2em;
+}
+
+header {
+  width: 800px;
+  min-height: 50px;
+  margin: 5px auto;
+}
+
+header h1 {
+	color: gray;
+}
+
 ul {
    list-style-type: none;
    margin: 20px;
 }
 
-li {
+ul li {
    padding: 5px;
 }
 
-li:active {
+ul li:hover {
+	cursor: pointer;
+}
+
+ul li.active {
     background-color: yellow;
     
 } 
@@ -16,11 +40,16 @@ img {
 	width: 400px;
 }
 
-#catshow {
-	border: 1px solid blue;
+img:hover {
+	cursor: pointer;
 }
 
-#gallery {
-	border-top: 1px solid green;
-	border-bottom: 1px solid green;
-} 
+.cat-list{
+	border: 1px solid green;
+	width: 25%;
+}
+
+.cat-show {
+	width: 65%;
+	border: 1px solid blue;
+}
