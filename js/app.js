@@ -99,13 +99,13 @@ $(function(){
 
             this.catShow.html( htmlStr );
 
-            var current = $('.current-cat');
-            current[0].addEventListener('click', (function(numCopy) {
+            var current = $('.current-cat')[0];
+            current.addEventListener('click', (function(numCopy) {
                 return function() {
                     octopus.clickedCat(numCopy);
                             //alert(this.numCopy);
                         };
-                    })(current[0].id));
+                    })(current.id));
         
         } 
     };
