@@ -54,6 +54,12 @@
                 "name" : "Gerdi",
                 "img"  : "img/kitten-11.jpg",
                 "clicks" : 0 
+              },
+              {
+                "name" : "Josi",
+                "img"  : "img/kitten-12.jpg",
+                "clicks": 0 
+
               }
            ]
          };
