@@ -7,8 +7,25 @@ $(function(){
     };
 
     var octopus = {
+        getAdminState: function() {
+            return model.admin
+        },
         activateAdmin: function() {
             model.admin = true;
+            adminView.render();
+        },
+        deactivateAdmin: function() {
+            model.admin = false;
+            adminView.render();
+        },
+        saveData: function() {
+            
+        },
+        cancelEdit: function () {
+
+        },
+        getProperties: function() {
+            return Object.keys(model.kittens[0]);
         },
         increment: function() {
             model.currentCat.clicks++;
@@ -34,15 +51,42 @@ $(function(){
     var adminView = {
         init: function() {
             this.adminButtonElem = document.getElementById('admin');
-
+            this.adminHideElem = document.getElementById('input');
+            this.adminButtonCancelElem = document.getElementById('cancel');
+            this.adminPropertyListElem = document.getElementById('input');
+            this.keys = octopus.getProperties();
             this.adminButtonElem.addEventListener('click', function(){
                octopus.activateAdmin();
-               alert('clicked');
             });
 
+            this.adminButtonCancelElem.addEventListener('click', function(){
+               octopus.deactivateAdmin();
+            });
+            var top = this.adminPropertyListElem.childNodes[0];
+            for (var key in this.keys) {
+                var elem = document.createElement('input');
+                elem.id = this.keys[key];
+                this.adminPropertyListElem.insertBefore(elem, top);  
+            }
+
             adminView.render();
+
         },
         render: function() {
+            if (!octopus.getAdminState()) {
+                this.adminHideElem.hidden = true;
+            } else {
+                this.adminHideElem.hidden = false;
+                for (key in this.keys) {
+                    var k = this.keys[key];
+                    console.log(k);
+                    document.getElementById(k).value = octopus.getCurrentCat()[k];
+                }
+
+                
+            }
+
+
 
         }
     };
