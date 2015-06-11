@@ -1,111 +1,76 @@
 $(function(){
 
-    var data = {
-        lastID: 0,
+    var model = {
+        current: null,
         kittens: cats.kittens
     };
 
-    data.kittens[data.lastID].visible = true;
-    data.kittens[data.lastID].id = 0;
-
-    for (var d = 1; d < data.kittens.length; d++) {
-         data.kittens[d].visible = false;
-         data.kittens[d].id = d;
-    }
-
-    var model = {
-        init: function() {
-            if (!localStorage.data) {
-                localStorage.data = JSON.stringify(data.kittens);
-            }
-        },
-        getAllCats: function() {
-            return JSON.parse(localStorage.data);
-        },
-        getCat: function(num) {
-            return JSON.parse(localStorage.data)[num];
-        },
-        hide: function(num) {
-            data.kittens[num].visible = false;
-        },
-        show: function(num) {
-            data.kittens[num].visible = true;
-            data.lastID = num;
-        },
-        increase: function(num) {
-            data.kittens[num].clicks += 1;
-        }
-    };
-
     var octopus = {
-        clickedCat: function(num) {
-            model.increase(num);
-            view.render();
+        increment: function() {
+            model.current.clicks++;
+            catView.render();
         },
-        chosenCat: function(num) {
-                model.hide(data.lastID);
-                model.show(num);
-                view.render();
+        getCats: function() {
+            return model.kittens;
         },
-        getCatNames: function() {
-            var allNames = [],
-                allCats = model.getAllCats();
-            for (kitten in allCats) {
-                allNames[kitten] = allCats[kitten].name;
-            }
-            return allNames;
+        getCurrentCat: function() {
+            return model.current;
         },
-        getVisibleCats: function() {
-            var visibleCats = data.kittens.filter(function(kitten) {
-                return kitten.visible;
-            });
-            return visibleCats;
+        setCurrentCat: function(kitten) {
+            model.current = kitten; 
         },
         init: function() {
-            model.init();
-            view.init();
+            model.current = model.kittens[0];
+            listView.init();
+            catView.init();
         }
     };
 
-    var view = {
+    var listView = {
         init: function() {
-            this.catList = $('#cat-list');
-            this.catShow = $('#cat-show');
-            view.render();
+            this.catListElem = document.getElementById('cat-list');
+            this.render();
         },
         render: function() {
-            var htmlStr = '';
-            if (!this.catList.firstChild) {
-                octopus.getCatNames().forEach(function(kittenName){
-                    htmlStr += '<li class="cat">'+ kittenName + '</li>';
-                });
-                this.catList.html( htmlStr );
-                
-                var list = $('.cat');
-                for (var i = 0; i < list.length; i++) {
-                    list[i].addEventListener('click', (function(numCopy) {
-                        return function() {
-                            octopus.chosenCat(numCopy);
-                            //alert(this.numCopy);
-                        };
-                    })(i));
-                }
+            var cat, elem, i;
+            var cats = octopus.getCats();
+
+            this.catListElem.innerHTML = '';
+
+            for (i = 0; i < cats.length; i++) {
+              cat = cats[i];
+
+              elem = document.createElement('li');
+              elem.textContent = cat.name;
+              elem.addEventListener('click', (function(catCopy) {
+                  return function() {
+                      octopus.setCurrentCat(catCopy);
+                      catView.render();
+                  };
+              })(cat));
+               this.catListElem.appendChild(elem);
             }
-            var htmlStr = '',
-                kitten = octopus.getVisibleCats()[0];
-            htmlStr += '<h2>' + kitten.name +
-                       '</h2><img class="current-cat" id="' + kitten.id + '" src='+ kitten.img +'>' +
-                       '<p>Strokes: ' + kitten.clicks + '</p>';
+        }
+    };
 
-            this.catShow.html( htmlStr );
+    var catView = {
+        init: function() {
+            this.catNameElem = document.getElementById('cat-name');
+            this.catClicksElem = document.getElementById('cat-clicks');
+            this.catImgElem = document.getElementById('cat-img');
 
-            var current = $('.current-cat')[0];
-            current.addEventListener('click', (function(numCopy) {
-                return function() {
-                    octopus.clickedCat(numCopy);
-                            //alert(this.numCopy);
-                        };
-                    })(current.id));
+            this.catImgElem.addEventListener('click', function(){
+                octopus.increment();
+            });
+
+            catView.render();
+        },
+        render: function() {
+            var currentCat = octopus.getCurrentCat();
+            this.catNameElem.textContent = currentCat.name;
+            this.catClicksElem.textContent = currentCat.clicks;
+            this.catImgElem.src = currentCat.img;
+
         
         } 
     };
