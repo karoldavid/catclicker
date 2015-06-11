@@ -3,6 +3,7 @@ $(function(){
     var model = {
         admin: false,
         currentCat: null,
+        currentId : 0,
         kittens: cats.kittens
     };
 
@@ -18,8 +19,12 @@ $(function(){
             model.admin = false;
             adminView.render();
         },
-        saveData: function() {
-            
+        saveData: function(newValues) {
+            for (v in newValues) {
+                model.currentCat[v] = newValues[v];
+            }
+            catListView.render();
+            catView.render();
         },
         cancelEdit: function () {
 
@@ -28,7 +33,9 @@ $(function(){
             return Object.keys(model.kittens[0]);
         },
         increment: function() {
-            model.currentCat.clicks++;
+            if (!model.admin) {
+                model.currentCat.clicks++;
+            }
             catView.render();
         },
         getCats: function() {
@@ -51,10 +58,19 @@ $(function(){
     var adminView = {
         init: function() {
             this.adminButtonElem = document.getElementById('admin');
-            this.adminHideElem = document.getElementById('input');
             this.adminButtonCancelElem = document.getElementById('cancel');
-            this.adminPropertyListElem = document.getElementById('input');
+            this.adminButtonSubmitElem = document.getElementById('submit');
+            this.adminInputFormElem = document.getElementById('form');
+
             this.keys = octopus.getProperties();
+
+            var top = this.adminInputFormElem.childNodes[0];
+            for (var key in this.keys) {
+                var elem = document.createElement('input');
+                elem.id = this.keys[key];
+                this.adminInputFormElem.insertBefore(elem, top);  
+            }
+            
             this.adminButtonElem.addEventListener('click', function(){
                octopus.activateAdmin();
             });
@@ -62,24 +78,28 @@ $(function(){
             this.adminButtonCancelElem.addEventListener('click', function(){
                octopus.deactivateAdmin();
             });
-            var top = this.adminPropertyListElem.childNodes[0];
-            for (var key in this.keys) {
-                var elem = document.createElement('input');
-                elem.id = this.keys[key];
-                this.adminPropertyListElem.insertBefore(elem, top);  
-            }
+
+            this.adminButtonSubmitElem.addEventListener('click', function(){
+               var newValues = [];
+               this.keys = octopus.getProperties();
+               for (var key in this.keys) {
+                    var k = this.keys[key];
+                    newValues[k] = document.getElementById(k).value;
+                }
+               octopus.deactivateAdmin();
+               octopus.saveData(newValues);
+            });
 
             adminView.render();
 
         },
         render: function() {
             if (!octopus.getAdminState()) {
-                this.adminHideElem.hidden = true;
+                this.adminInputFormElem.hidden = true;
             } else {
-                this.adminHideElem.hidden = false;
+                this.adminInputFormElem.hidden = false;
                 for (key in this.keys) {
                     var k = this.keys[key];
-                    console.log(k);
                     document.getElementById(k).value = octopus.getCurrentCat()[k];
                 }
 
@@ -109,7 +129,9 @@ $(function(){
               elem.textContent = cat.name;
               elem.addEventListener('click', (function(catCopy) {
                   return function() {
+                    if (!model.admin) {
                       octopus.setCurrentCat(catCopy);
+                    }
                       catView.render();
                   };
               })(cat));
