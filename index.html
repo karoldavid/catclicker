@@ -10,20 +10,30 @@
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+  <header></header>
+  <div class="flex-container">
+   <div class="row">
 
- <!--  <h1>Cat Clicker Premium Vanilla</h1>
-  <h2>Select a kitten from the cat list:</h2> -->
+     <div class="item-1">
+        <ul id="cat-list"></ul>
+      </div>
 
-  <ul id="cat-list"></ul>
+      <div id="cat-show" class="item-2">
+        <h2 id="cat-name"></h2>
+        <p id="cat-clicks"></p>
+        <img id="cat-img" src="" alt="cute cat">
 
-  <div id="cat-show">
-    <h2 id="cat-name"></h2>
-    <p id="cat-clicks"></p>
-    <img id="cat-img" src="" alt="cute cat">
-  </div>
+        <div id="">
+          <button type="button" id="admin">Admin</button>
+      
+          <form id="input" hidden="true">
+            <button type="button" id="cancel">cancel</button>
+            <input type="submit" value="Submit">
+          </form>
+        </div>
+      </div>
 
-  <div id="admin-area">
-    <button type="button"id="admin">Admin</button>
+    </div>
   </div>
 
   <script src="js/jquery-1.11.3.min.js"></script>
