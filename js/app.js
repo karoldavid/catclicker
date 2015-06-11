@@ -26,9 +26,6 @@ $(function(){
             catListView.render();
             catView.render();
         },
-        cancelEdit: function () {
-
-        },
         getProperties: function() {
             return Object.keys(model.kittens[0]);
         },
@@ -101,13 +98,8 @@ $(function(){
                 for (key in this.keys) {
                     var k = this.keys[key];
                     document.getElementById(k).value = octopus.getCurrentCat()[k];
-                }
-
-                
+                } 
             }
-
-
-
         }
     };
 
