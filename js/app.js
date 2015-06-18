@@ -1,5 +1,7 @@
 $(function(){
 
+    var IMG_PATH = 'dist/images/';
+
     var model = {
         admin: false,
         currentCat: null,
@@ -149,7 +151,7 @@ $(function(){
 
             this.catNameElem.textContent = currentCat.name;
             this.catClicksElem.textContent = currentCat.clicks;
-            this.catImgElem.src = currentCat.img;        
+            this.catImgElem.src = IMG_PATH + currentCat.img;        
         } 
     };
 
